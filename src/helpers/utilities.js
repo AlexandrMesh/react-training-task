@@ -35,8 +35,7 @@ export function generateTableData(size) {
   const repeat = (fn, n) => Array(n).fill(0).map(fn);
   const rand = () => getRandomValue(1,100);
   const data = n => repeat(() => repeat(rand, n), n);
-
-  console.log(data(size));
+  return data(size);
 
 }
 

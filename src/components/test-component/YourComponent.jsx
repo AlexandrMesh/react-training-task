@@ -1,5 +1,5 @@
 import React from 'react';
-import { findMaxAdjacent, getRandomValue, generateTableData } from './utilities';
+import { findMaxAdjacent, getRandomValue, generateTableData } from '../../helpers/utilities';
 import './YourComponent.less';
 
 function data() {
