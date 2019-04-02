@@ -187,7 +187,6 @@ class App extends Component {
 
     changeLimit(event) {
         const limit = +event.target.value;
-
         this.validationLimit(limit);
     }
 
@@ -197,11 +196,13 @@ class App extends Component {
     }
 
     refreshData() {
-        this.setState({
-            size: this.state.size,
-            limit: this.state.limit,
-            data: generateTableData(this.state.size)
-        });
+        if (this.state.validation.valid) {
+            this.setState({
+                size: this.state.size,
+                limit: this.state.limit,
+                data: generateTableData(this.state.size)
+            });
+        }
     }
 
     render() {
