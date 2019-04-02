@@ -152,7 +152,7 @@ class App extends Component {
         } else {
             error = this.validationErrorMessageReducerLimit(limit);
             validLimit = false;
-            
+            limit = this.state.limit;
         }
 
         if (this.state.validation.size.valid && validLimit) {
