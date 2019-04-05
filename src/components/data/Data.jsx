@@ -1,19 +1,13 @@
 import React from 'react';
 import './Data.less';
 
-const findIndex = (x, y, indexes) => {
-    const findIndexes = indexes.filter((data) => {
-        if (data.x === x && data.y === y) {
-            return data;
-        }
-    });
-
-    if (findIndexes.length > 0) {
+const getMarkedClass = (x, y, indexes) => {
+    if (indexes.some((data) => data.x === x && data.y === y)) {
         return 'marked';
     }
 }
 
-const Disabled = (validation) => {
+const getDisabledClass = (validation) => {
     if (!validation) {
         return 'disabled'
     }
@@ -21,16 +15,15 @@ const Disabled = (validation) => {
 
 const Data = (props) => {
 
-    const data = props.data;
-    const find = props.find.indexes;
+    const {validation, data, find} = props;
 
     return (
-        <table className={Disabled(props.validation)}>
+        <table className={getDisabledClass(validation)}>
             <tbody>
                 {data.map((row, i) => (
                     <tr key={i}>
                         {row.map((col, j) => (
-                            <td key={j} className={findIndex(i, j, find)}>{col}</td>
+                            <td key={j} className={getMarkedClass(i, j, find.indexes)}>{col}</td>
                         ))}
                     </tr>
                 ))}

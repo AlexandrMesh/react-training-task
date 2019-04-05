@@ -1,18 +1,24 @@
 import React from 'react';
 import './Input.less';
 
-const errorClass = (error, from) => {
+const getErrorClass = (error) => {
     if (error) {
         return 'error';
     }
 }
 
 const Input = (props) => {
+    const {onChangeValue, error, ...other} = props;
     return (
+        
         <div className="input-wrapper">
             <label htmlFor={props.id}>{props.label}</label>
-            <input onChange={(event) => props.changeValue(event)} className={errorClass(props.error)} id={props.id} type="number" value={props.value} step="1" />
-            { props.error && <div className={errorClass(props.error)}>{props.error}</div>}
+            <input 
+                onChange={onChangeValue}
+                className={getErrorClass(error)}
+                {...other}
+            />
+            { error && <div className='error'>{error}</div>}
             
         </div>
     )

@@ -1,6 +1,16 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
+import dataReducer from './store/reducers/dataReducer';
 import App from './components/container/App';
 import './styles/styles.less';
 
-ReactDOM.render(<App/>, document.getElementById('application-root'));
+const store = createStore(dataReducer);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>, 
+    document.getElementById('application-root'));
