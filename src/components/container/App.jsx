@@ -147,7 +147,6 @@ class App extends Component {
             },
             limit
         };
-        console.log(value, 'value');
         this.props.changeLimit(value);
     }
 

@@ -8,7 +8,6 @@ const getMarkedClassName = (x, y, indexes) => {
 }
 
 const getDisabledClassName = (validation) => {
-    console.log(validation, 'validation');
     if (!validation) {
         return 'disabled'
     }
