@@ -1,20 +1,20 @@
 import { generateTableData } from '../../helpers/utilities';
-import { SET_DATA_LIMIT, SET_DATA_SIZE, REFRESH_DATA } from '../actionTypes/actionTypes'
+import { UPDATE_SIZE, UPDATE_LIMIT, REFRESH } from '../actionTypes/actionTypes'
 
 const initialState = {
     size: 5,
     limit: 3,
     data: generateTableData(5),
     validation: {
-        valid: true,
+        isValid: true,
         size: {
-            valid: true,
+            isValid: true,
             minLength: 3,
             maxLength: 20,
             error: null
         },
         limit: {
-            valid: true,
+            isValid: true,
             minLength: 2,
             maxLength: 5,
             error: null
@@ -27,7 +27,7 @@ const dataReducer = (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case SET_DATA_LIMIT:
+        case UPDATE_LIMIT:
 
             const { validation: limitValidation, limit } = payload;
 
@@ -35,17 +35,17 @@ const dataReducer = (state = initialState, action) => {
                 ...state,
                 validation: {
                     ...state.validation,
-                    valid: limitValidation.valid,
+                    isValid: limitValidation.isValid,
                     limit: {
                         ...state.validation.limit,
-                        valid: limitValidation.limit.valid,
+                        isValid: limitValidation.limit.isValid,
                         error: limitValidation.limit.error
                     },
                 },
                 limit
             };
 
-        case SET_DATA_SIZE:
+        case UPDATE_SIZE:
 
             const { validation: sizeValidation, size, data } = payload;
 
@@ -53,17 +53,17 @@ const dataReducer = (state = initialState, action) => {
                 ...state,
                 validation: {
                     ...state.validation,
-                    valid: sizeValidation.valid,
+                    isValid: sizeValidation.isValid,
                     size: {
                         ...state.validation.size,
-                        valid: sizeValidation.size.valid,
+                        isValid: sizeValidation.size.isValid,
                         error: sizeValidation.size.error
                     },
                 },
                 size,
                 data
             };
-        case REFRESH_DATA:
+        case REFRESH:
 
             const { size: refreshSize, limit: refreshLimit, data: refreshData } = payload;
 

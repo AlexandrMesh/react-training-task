@@ -1,22 +1,22 @@
-import { SET_DATA_LIMIT, SET_DATA_SIZE, REFRESH_DATA } from '../actionTypes/actionTypes'
+import { UPDATE_SIZE, UPDATE_LIMIT, REFRESH } from '../actionTypes/actionTypes'
 
-export function setStoreWithLimit(value) {
+export function updateLimit(value) {
     return {
-        type: SET_DATA_LIMIT,
+        type: UPDATE_LIMIT,
         payload: value
     };
 }
 
-export function setStoreWithSize(value) {
+export function updateSize(value) {
     return {
-        type: SET_DATA_SIZE,
+        type: UPDATE_SIZE,
         payload: value
     };
 }
 
-export function refreshDataStore(value) {
+export function refresh(value) {
     return {
-        type: REFRESH_DATA,
+        type: REFRESH,
         payload: value
     };
 }

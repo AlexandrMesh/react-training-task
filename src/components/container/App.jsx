@@ -5,7 +5,7 @@ import Input from '../input/Input';
 import Result from '../result/Result';
 import Refresh from '../refresh/Refresh';
 import Data from '../data/Data';
-import { test, setStoreWithLimit, setStoreWithSize, refreshDataStore } from '../../store/actions/dataActions'
+import { updateSize, updateLimit, refresh } from '../../store/actions/dataActions'
 import './App.less';
 
 class App extends Component {
@@ -81,7 +81,7 @@ class App extends Component {
     validateSize(size) {
         let data;
         let validSize;
-        let valid;
+        let isValid;
         let error;
 
         if (this.getMaxValidationSize(size) && this.getComparingWithLimit(size) && this.getMinValidationSize(size)) {
@@ -94,32 +94,32 @@ class App extends Component {
             validSize = false;
         }
 
-        if (this.props.validation.limit.valid && validSize) {
-            valid = true;
+        if (this.props.validation.limit.isValid && validSize) {
+            isValid = true;
         } else {
-            valid = false;
+            isValid = false;
             data = this.props.data;
         }
 
         const value = {
             validation: {
-                valid: valid,
+                isValid,
                 size: {
-                    valid: validSize,
-                    error: error
+                    isValid: validSize,
+                    error
                 }
             },
-            size: size,
-            data: data
+            size,
+            data
         };
 
-        this.props.setDataSize(value);
+        this.props.changeSize(value);
 
     }
 
     validateLimit(limit) {
         let validLimit;
-        let valid;
+        let isValid;
         let error;
 
         if (this.getMaxValidationLimit(limit) && this.getComparingWithSize(limit) && this.getMinValidationLimit(limit)) {
@@ -131,35 +131,36 @@ class App extends Component {
             limit = this.props.limit;
         }
 
-        if (this.props.validation.size.valid && validLimit) {
-            valid = true;
+        if (this.props.validation.size.isValid && validLimit) {
+            isValid = true;
         } else {
-            valid = false;
+            isValid = false;
         }
 
         const value = {
             validation: {
-                valid: valid,
+                isValid,
                 limit: {
-                    valid: validLimit,
-                    error: error
+                    isValid: validLimit,
+                    error
                 }
             },
-            limit: limit
+            limit
         };
-        this.props.setDataLimit(value);
+        console.log(value, 'value');
+        this.props.changeLimit(value);
     }
 
     handleChangeSize(event) {
         const size = +event.target.value;
 
         this.validateSize(size);
-
     }
 
     handleChangeLimit(event) {
         const limit = +event.target.value;
         this.validateLimit(limit);
+        console.log(this.props);
     }
 
     findMaxNumber() {
@@ -174,7 +175,7 @@ class App extends Component {
             limit: this.props.limit,
             data: generateTableData(this.props.size)
         }
-        this.props.refreshDataStore(value);
+        this.props.refreshData(value);
     }
 
     render() {
@@ -182,7 +183,7 @@ class App extends Component {
             <div className="app-wrapper">
                 <div className="form">
                     <Input
-                        onChangeValue={this.handleChangeSize}
+                        onChange={this.handleChangeSize}
                         label="Size"
                         id="size"
                         value={this.props.size}
@@ -191,7 +192,7 @@ class App extends Component {
                         step="1"
                     />
                     <Input
-                        onChangeValue={this.handleChangeLimit}
+                        onChange={this.handleChangeLimit}
                         label="Limit"
                         id="limit"
                         value={this.props.limit}
@@ -200,12 +201,12 @@ class App extends Component {
                         step="1"
                     />
                     <Result value={this.findMaxNumber()} />
-                    <Refresh refresh={this.refreshData} disabled={!this.props.validation.valid} />
+                    <Refresh refresh={this.refreshData} disabled={!this.props.validation.isValid} />
                 </div>
                 <Data
                     data={this.props.data}
                     find={this.findMaxNumber()}
-                    validation={this.props.validation.valid}
+                    validation={this.props.validation.isValid}
                 />
             </div>
         );
@@ -220,10 +221,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        test: () => dispatch(test()),
-        setDataSize: (value) => dispatch(setStoreWithSize(value)),
-        setDataLimit: (value) => dispatch(setStoreWithLimit(value)),
-        refreshDataStore: (value) => dispatch(refreshDataStore(value))
+        changeSize: (value) => dispatch(updateSize(value)),
+        changeLimit: (value) => dispatch(updateLimit(value)),
+        refreshData: (value) => dispatch(refresh(value))
     }
 }
 

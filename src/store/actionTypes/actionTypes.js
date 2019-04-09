@@ -1,3 +1,3 @@
-export const SET_DATA_LIMIT = 'SET_DATA_LIMIT';
-export const SET_DATA_SIZE = 'SET_DATA_SIZE';
-export const REFRESH_DATA = 'REFRESH_DATA';
+export const UPDATE_LIMIT = 'UPDATE_LIMIT';
+export const UPDATE_SIZE = 'UPDATE_SIZE';
+export const REFRESH = 'REFRESH';

@@ -7,16 +7,14 @@ const getErrorClass = (error) => {
     }
 }
 
-const Input = (props) => {
-    const {onChangeValue, error, ...other} = props;
+const Input = ({error, label, ...props}) => {
     return (
         
         <div className="input-wrapper">
-            <label htmlFor={props.id}>{props.label}</label>
+            <label htmlFor={props.id}>{label}</label>
             <input 
-                onChange={onChangeValue}
                 className={getErrorClass(error)}
-                {...other}
+                {...props}
             />
             { error && <div className='error'>{error}</div>}
             

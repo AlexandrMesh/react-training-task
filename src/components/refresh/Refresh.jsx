@@ -1,12 +1,10 @@
 import React from 'react';
 import './Refresh.less';
 
-const Refresh = (props) => {
-
-    const {refresh, ...other} = props;
+const Refresh = ({refresh, ...props}) => {
 
     return (
-        <button className="refresh-button" onClick={refresh} {...other}>
+        <button className="refresh-button" onClick={refresh} {...props}>
             Refresh
         </button>
     )
